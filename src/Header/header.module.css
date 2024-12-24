@@ -1,0 +1,24 @@
+header {
+  background-color: rgb(169, 169, 169);
+
+  height: 60px;
+
+  display: flex;
+  align-items: center;
+}
+
+.img {
+  background-image: url("../../img/logo.png");
+  background-repeat: no-repeat;
+
+  height: 36px;
+  width: 20vw;
+
+  position: absolute;
+  left: 13vw;
+}
+
+.tel {
+  position: absolute;
+  right: 13vw;
+}

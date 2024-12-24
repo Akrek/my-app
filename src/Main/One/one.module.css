@@ -1,0 +1,43 @@
+.one {
+  text-align: center;
+  background-image: url("../../../img/fon.png");
+  background-size: cover;
+  height: 450px;
+
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.img {
+  border:7px solid rgb(46,77,196);
+  background-image: url("../../../img/kom.png");
+  background-size: cover;
+
+  height: 40vw;
+  width: 40vw;
+  max-height: 350px;
+  max-width: 350px;
+
+  opacity: 0;
+  transform: translateY(50px);
+  animation: animation 1s forwards; 
+}
+
+.text {
+  border-radius: 10px 0 10px 0;
+  padding: 0 10px;
+  background-color: rgba(234, 234, 234, 0.84);
+  max-width: 800px;
+
+  opacity: 0;
+  transform: translateY(50px);
+  animation: animation 1s forwards;
+}
+
+@keyframes animation {
+  to {
+    opacity: 1; /* Конечное состояние: видимо */
+    transform: translateY(0); /* Возвращаем на место */
+  }
+}
