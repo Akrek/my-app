@@ -77,22 +77,40 @@ app.post("/zav", (req, res) => {
   );
 });
 
-app.post("/zavv", (req, res) => {
+app.all("/zavv", (req, res) => {
   const { car, date, time } = req.body;
   const state = "New";
   if (!car || !date || !time) {
     return res.status(400).json({ message: "Заполните все поля" });
   }
 
-  const sql = `INSERT INTO zavv (car, date, time, state) VALUES (?, ?, ?, ?);`;
-  db.get(sql, [car, date, time, state], (err, row) => {
+  const sql1 = `
+    SELECT COUNT(*) AS count 
+    FROM zavv 
+    WHERE date = ? AND time = ? AND state IN ('New', 'Accept')
+  ;`;
+
+  db.get(sql1, [date, time], (err, row) => {
     if (err) {
       console.error(err.message);
       return res.status(500).json({ message: "Ошибка сервера" });
     }
 
-    if (row) {
-      res.status(200).json({ message: "Успешная отправка заявки" });
+    if (row && row.count > 0) {
+      return res
+        .status(409)
+        .json({ message: "На это время уже есть активная заявка" });
+    } else {
+      // res.status(200).json({ message: "Время свободно" });
+      const sql = `INSERT INTO zavv (car, date, time, state) VALUES (?, ?, ?, ?);`;
+      db.get(sql, [car, date, time, state], (err, row) => {
+        if (err) {
+          console.error(err.message);
+          return res.status(500).json({ message: "Ошибка сервера" });
+        } else {
+          res.status(200).json({ message: "Успешная отправка заявки" });
+        }
+      });
     }
   });
 });

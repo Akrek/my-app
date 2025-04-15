@@ -13,7 +13,6 @@ function Zavv() {
 
     try {
       const response = await fetch("http://localhost:3001/zavv", {
-        // Проверьте этот путь!
         method: "POST",
         headers: {
           "Content-Type": "application/json",
